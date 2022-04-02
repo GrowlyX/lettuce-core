@@ -1056,44 +1056,6 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>run-benchmarks</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>java</executable>
-                                    <classpathScope>test</classpathScope>
-                                    <arguments>
-                                        <argument>-Xmx2G</argument>
-                                        <argument>-classpath</argument>
-                                        <classpath />
-                                        <argument>org.openjdk.jmh.Main</argument>
-                                        <argument>.*</argument>
-                                        <argument>-tu</argument>
-                                        <argument>ns</argument>
-                                        <argument>-f</argument>
-                                        <argument>1</argument>
-                                        <argument>-wi</argument>
-                                        <argument>10</argument>
-                                        <argument>-w</argument>
-                                        <argument>1</argument>
-                                        <argument>-r</argument>
-                                        <argument>1</argument>
-                                        <argument>-i</argument>
-                                        <argument>10</argument>
-                                        <argument>-bm</argument>
-                                        <argument>avgt</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
