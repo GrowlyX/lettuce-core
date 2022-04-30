@@ -3,7 +3,7 @@
 
     <groupId>io.lettuce</groupId>
     <artifactId>lettuce-core</artifactId>
-    <version>6.2.0.BUILD-SNAPSHOT</version>
+    <version>6.3.0.STABLE</version>
     <packaging>jar</packaging>
 
     <name>Lettuce</name>
@@ -53,7 +53,7 @@
         <repository>
             <id>artifactory</id>
             <name>scala-releases</name>
-            <url>https://artifactory.scala.gg/artifactory/gradle-release-local</url>
+            <url>https://artifactory.scala.gg/artifactory/gradle-release</url>
         </repository>
     </distributionManagement>
 
