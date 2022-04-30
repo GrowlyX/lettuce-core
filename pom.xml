@@ -53,7 +53,7 @@
         <repository>
             <id>artifactory</id>
             <name>scala-releases</name>
-            <url>https://artifactory.scala.gg/artifactory/gradle-release</url>
+            <url>https://artifactory.scala.gg/artifactory/gradle-release-local</url>
         </repository>
     </distributionManagement>
 
