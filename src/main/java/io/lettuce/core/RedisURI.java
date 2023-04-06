@@ -145,6 +145,7 @@ import io.lettuce.core.internal.LettuceStrings;
  * @author Guy Korland
  * @author Johnny Lim
  * @author Jon Iantosca
+ * @author Jacob Halsey
  * @since 3.0
  */
 @SuppressWarnings("serial")
@@ -625,7 +626,7 @@ public class RedisURI implements Serializable, ConnectionPoint {
         LettuceAssert.notNull(source, "Source RedisURI must not be null");
 
         setSsl(source.isSsl());
-        setVerifyPeer(source.isVerifyPeer());
+        setVerifyPeer(source.getVerifyMode());
         setStartTls(source.isStartTls());
     }
 
@@ -760,8 +761,8 @@ public class RedisURI implements Serializable, ConnectionPoint {
 
         String userInfo = uri.getUserInfo();
 
-        if (isEmpty(userInfo) && isNotEmpty(uri.getAuthority()) && uri.getAuthority().indexOf('@') > 0) {
-            userInfo = uri.getAuthority().substring(0, uri.getAuthority().indexOf('@'));
+        if (isEmpty(userInfo) && isNotEmpty(uri.getAuthority()) && uri.getAuthority().lastIndexOf('@') > 0) {
+            userInfo = uri.getAuthority().substring(0, uri.getAuthority().lastIndexOf('@'));
         }
 
         if (isNotEmpty(userInfo)) {
@@ -1121,7 +1122,7 @@ public class RedisURI implements Serializable, ConnectionPoint {
                 if (isNotEmpty(uri.getAuthority())) {
                     String authority = uri.getAuthority();
                     if (authority.indexOf('@') > -1) {
-                        authority = authority.substring(authority.indexOf('@') + 1);
+                        authority = authority.substring(authority.lastIndexOf('@') + 1);
                     }
 
                     builder = Builder.redis(authority);
@@ -1158,7 +1159,7 @@ public class RedisURI implements Serializable, ConnectionPoint {
         if (builder == null && isNotEmpty(uri.getAuthority())) {
             String authority = uri.getAuthority();
             if (authority.indexOf('@') > -1) {
-                authority = authority.substring(authority.indexOf('@') + 1);
+                authority = authority.substring(authority.lastIndexOf('@') + 1);
             }
 
             String[] hosts = authority.split(",");
@@ -1461,7 +1462,7 @@ public class RedisURI implements Serializable, ConnectionPoint {
             LettuceAssert.notNull(source, "Source RedisURI must not be null");
 
             withSsl(source.isSsl());
-            withVerifyPeer(source.isVerifyPeer());
+            withVerifyPeer(source.getVerifyMode());
             withStartTls(source.isStartTls());
 
             return this;

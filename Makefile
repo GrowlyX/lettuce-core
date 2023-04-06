@@ -88,6 +88,7 @@ work/redis-6483.conf:
 	@echo client-output-buffer-limit pubsub 256k 128k 5 >> $@
 	@echo unixsocket $(ROOT_DIR)/work/socket-6483 >> $@
 	@echo unixsocketperm 777 >> $@
+	@echo enable-debug-command yes >> $@
 ifeq ($(REDIS),unstable)
 	@echo slaveof localhost 6482 >> $@
 	@echo replica-announce-ip localhost >> $@
@@ -108,6 +109,7 @@ work/redis-%.conf:
 	@echo client-output-buffer-limit pubsub 256k 128k 5 >> $@
 	@echo unixsocket $(ROOT_DIR)/work/socket-$* >> $@
 	@echo unixsocketperm 777 >> $@
+	@echo enable-debug-command yes >> $@
 ifeq ($(REDIS),unstable)
 	@echo replica-announce-ip localhost >> $@
 endif
@@ -205,7 +207,7 @@ work/cluster-node-7479.conf:
 	@echo cluster-enabled yes >> $@
 	@echo cluster-node-timeout 150 >> $@
 	@echo cluster-config-file $(shell pwd)/work/cluster-node-config-7479.conf >> $@
-	@echo cluster-announce-port 7443 >> $@
+	@echo cluster-announce-port 7442 >> $@
 	@echo requirepass foobared >> $@
 
 
@@ -287,7 +289,7 @@ work/stunnel.conf:
 	@echo key=$(ROOT_DIR)/work/ca/private/foo-host.decrypted.key.pem >> $@
 
 	@echo [ssl-cluster-node-1] >> $@
-	@echo accept = 127.0.0.1:7443 >> $@
+	@echo accept = 127.0.0.1:7442 >> $@
 	@echo connect = 127.0.0.1:7479 >> $@
 
 	@echo [ssl-cluster-node-2] >> $@
@@ -438,7 +440,7 @@ clean:
 
 release:
 	mvn release:clean
-	mvn release:prepare -Psonatype-oss-release
-	mvn release:perform -Psonatype-oss-release
+	mvn release:prepare
+	mvn release:perform
 	ls target/checkout/target/*-bin.zip | xargs gpg -b -a
 	ls target/checkout/target/*-bin.tar.gz | xargs gpg -b -a
